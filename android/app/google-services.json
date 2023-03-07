@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "779060620741",
+    "project_id": "vegi-app-a8c91",
+    "storage_bucket": "vegi-app-a8c91.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:779060620741:android:7527b71aed751b4c582fac",
+        "android_client_info": {
+          "package_name": "com.example.vegi_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "779060620741-sol59qsq6r95g18e1mucrqgrneds0bha.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.vegi_app",
+            "certificate_hash": "e173c20cb984bc5c1250f859593a7ce430ee4535"
+          }
+        },
+        {
+          "client_id": "779060620741-u2698kck77f66f27hllocarstk5c3mjv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_pag4LR70Bve1rHL9z35qjVMasQuljWo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "779060620741-4ocm8p1gmoed3mmqb1f8fff2r6p31o6m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
