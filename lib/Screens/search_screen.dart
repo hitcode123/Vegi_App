@@ -8,6 +8,7 @@ class Search extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text('Search'),
         actions: [
@@ -34,13 +35,44 @@ class Search extends StatelessWidget {
                       borderSide: BorderSide.none),
                   hintText: "Enter Here to Search in  the Feild",
                   alignLabelWithHint: true,
-                  fillColor: Color(0xffc2c2c2),
+                  fillColor: Color.fromARGB(255, 226, 218, 218),
                   filled: true,
                   suffixIcon: Icon(Icons.search)),
             ),
           ),
         ),
-        SearchItem()
+        SizedBox(
+          height: 10,
+        ),
+        Divider(
+          height: 2,
+          thickness: 2,
+        ),
+        SearchItem(),
+        SizedBox(
+          height: 10,
+        ),
+        Divider(
+          height: 2,
+          thickness: 2,
+        ),
+        SearchItem(),
+        SizedBox(
+          height: 10,
+        ),
+        Divider(
+          height: 2,
+          thickness: 2,
+        ),
+        SearchItem(),
+        SizedBox(
+          height: 10,
+        ),
+        Divider(
+          height: 2,
+          thickness: 2,
+        ),
+        SearchItem(),
       ]),
     );
   }
