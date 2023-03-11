@@ -88,11 +88,11 @@ class _SignInState extends State<SignIn> {
                       SignInButton(
                         Buttons.Google,
                         text: "Sign in with Google",
-                        onPressed: () {
-                          print("hello here");
-                          _googleSignUp().then((value) => Navigator.of(context)
-                              .pushReplacement(MaterialPageRoute(
-                                  builder: (context) => HomeScreen())));
+                        onPressed: () async {
+                          await _googleSignUp();
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (context) => HomeScreen()));
                         },
                       ),
                     ],

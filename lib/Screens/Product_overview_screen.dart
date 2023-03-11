@@ -5,7 +5,10 @@ import 'package:vegi_app/auth/sign_in.dart';
 enum SiginCharacter { fill, outline }
 
 class ProductOverviewScreen extends StatefulWidget {
-  const ProductOverviewScreen({Key? key}) : super(key: key);
+  final String productName;
+  final String productImage;
+  ProductOverviewScreen(
+      {required this.productName, required this.productImage});
 
   @override
   State<ProductOverviewScreen> createState() => _ProductOverviewScreenState();
@@ -76,33 +79,34 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                 width: double.infinity,
                 child: Column(children: [
                   ListTile(
-                    title: Text('fresh Basil'),
+                    title: Text(widget.productName),
                     subtitle: Text('\$50'),
                   ),
                   Container(
                     height: 150,
+                    width: double.infinity,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
                       child: Image.network(
-                          'https://m.media-amazon.com/images/I/61MvtCqDMIL._SX466_.jpg'),
+                        widget.productImage,
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10.0),
+                    padding: const EdgeInsets.only(top: 25.0),
                     child: Container(
                       padding: EdgeInsets.symmetric(horizontal: 20),
                       width: double.infinity,
                       child: Text(
                         'Available Options',
-                        textAlign: TextAlign.center,
                         style: TextStyle(
                             color: textColor, fontWeight: FontWeight.w700),
                       ),
                     ),
                   ),
                   Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                      padding: EdgeInsets.symmetric(horizontal: 15),
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [

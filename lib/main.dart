@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:vegi_app/Config/Colors.dart';
 import 'auth/sign_in.dart';
 
 void main() async {
@@ -17,6 +18,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: SignIn(),
+      theme: ThemeData(
+          appBarTheme: AppBarTheme(
+              color: primaryColor,
+              iconTheme: IconThemeData(color: textColor),
+              titleTextStyle: TextStyle(color: Colors.black)),
+          primaryColor: primaryColor,
+          scaffoldBackgroundColor: scaffoldBackgroundColor),
     );
   }
 }

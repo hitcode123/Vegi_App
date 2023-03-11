@@ -24,9 +24,7 @@ class SingalProduct extends StatelessWidget {
               height: 230,
               width: 165,
               decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-              ),
+                  color: Colors.white, borderRadius: BorderRadius.circular(10)),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -34,10 +32,11 @@ class SingalProduct extends StatelessWidget {
                     onTap: ontap,
                     child: Container(
                       height: 150,
-                      padding: EdgeInsets.all(5),
+                      padding: EdgeInsets.all(2),
                       width: double.infinity,
                       child: Image.network(
                         productImage!,
+                        fit: BoxFit.fill,
                       ),
                     ),
                   ),
