@@ -47,6 +47,7 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.white,
         bottomNavigationBar: Row(
           children: [
             ButtonNavigationBar(
@@ -89,7 +90,7 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                       borderRadius: BorderRadius.circular(20),
                       child: Image.network(
                         widget.productImage,
-                        fit: BoxFit.fill,
+                        fit: BoxFit.fitHeight,
                       ),
                     ),
                   ),

@@ -1,15 +1,34 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:vegi_app/Models/product_model.dart';
+import 'package:vegi_app/Providers/product_provider.dart';
 
 import '../Screens/search_screen.dart';
 import '../Drawer/drawerside.dart';
 import '../Widgets/single_product.dart';
 
 import '../Screens/Product_overview_screen.dart';
+import 'package:provider/provider.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  ProductProvider? productProvider;
+  void initState() {
+    super.initState();
+    ProductProvider productProvider =
+        Provider.of<ProductProvider>(context, listen: false);
+    productProvider.fetchherbProducts();
+    productProvider.fetchvegetableProducts();
+    productProvider.fetchfruitsProducts();
+  }
 
   Widget _buildHerb(String productImage, String productName, int productPrice,
       VoidCallback? ontap) {
@@ -49,6 +68,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ProductProvider? productProvider = Provider.of(context);
     return Scaffold(
         backgroundColor: Color(0xffcbcbcb),
         drawer: DrawerSide(),
@@ -170,7 +190,7 @@ class HomeScreen extends StatelessWidget {
                       ])))
                     ])),
                 SizedBox(
-                  height: 5,
+                  height: 20,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -188,52 +208,25 @@ class HomeScreen extends StatelessWidget {
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Center(
-                    child: Row(children: [
-                      _buildHerb(
-                          'https://w7.pngwing.com/pngs/940/684/png-transparent-basil-italian-cuisine-pesto-pizza-herb-mint-leaf-vegetable-food-leaf-thumbnail.png',
-                          'Herb',
-                          30, () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => ProductOverviewScreen(
-                                  productName: 'Herb',
-                                  productImage:
-                                      'https://w7.pngwing.com/pngs/940/684/png-transparent-basil-italian-cuisine-pesto-pizza-herb-mint-leaf-vegetable-food-leaf-thumbnail.png',
-                                )));
-                      }),
-                      _buildHerb(
-                          'https://w7.pngwing.com/pngs/940/684/png-transparent-basil-italian-cuisine-pesto-pizza-herb-mint-leaf-vegetable-food-leaf-thumbnail.png',
-                          'Herb',
-                          30, () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => ProductOverviewScreen(
-                                  productName: 'Herb',
-                                  productImage:
-                                      'https://w7.pngwing.com/pngs/940/684/png-transparent-basil-italian-cuisine-pesto-pizza-herb-mint-leaf-vegetable-food-leaf-thumbnail.png',
-                                )));
-                      }),
-                      _buildHerb(
-                          'https://w7.pngwing.com/pngs/940/684/png-transparent-basil-italian-cuisine-pesto-pizza-herb-mint-leaf-vegetable-food-leaf-thumbnail.png',
-                          'Herb',
-                          30, () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => ProductOverviewScreen(
-                                  productName: 'Herb',
-                                  productImage:
-                                      'https://w7.pngwing.com/pngs/940/684/png-transparent-basil-italian-cuisine-pesto-pizza-herb-mint-leaf-vegetable-food-leaf-thumbnail.png',
-                                )));
-                      }),
-                      _buildHerb(
-                          'https://w7.pngwing.com/pngs/940/684/png-transparent-basil-italian-cuisine-pesto-pizza-herb-mint-leaf-vegetable-food-leaf-thumbnail.png',
-                          'Herb',
-                          30, () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => ProductOverviewScreen(
-                                  productName: 'Herb',
-                                  productImage:
-                                      'https://w7.pngwing.com/pngs/940/684/png-transparent-basil-italian-cuisine-pesto-pizza-herb-mint-leaf-vegetable-food-leaf-thumbnail.png',
-                                )));
-                      }),
-                    ]),
+                    child: Row(
+                        children: productProvider!.fruitProductList
+                            .map(
+                              ((item) => _buildHerb(
+                                      item.productImage!,
+                                      item.productName!,
+                                      item.productPrice!, () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ProductOverviewScreen(
+                                                  productName:
+                                                      item.productName!,
+                                                  productImage:
+                                                      item.productImage!,
+                                                )));
+                                  })),
+                            )
+                            .toList()),
                   ),
                 ),
                 Row(
@@ -252,52 +245,25 @@ class HomeScreen extends StatelessWidget {
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Center(
-                    child: Row(children: [
-                      _buildgrass(
-                          'https://w7.pngwing.com/pngs/1014/112/png-transparent-green-leaves-rosemary-herb-thymes-hair-herbs-food-people-grass-thumbnail.png',
-                          'Grass',
-                          20, () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => ProductOverviewScreen(
-                                  productName: 'Grass',
-                                  productImage:
-                                      'https://w7.pngwing.com/pngs/1014/112/png-transparent-green-leaves-rosemary-herb-thymes-hair-herbs-food-people-grass-thumbnail.png',
-                                )));
-                      }),
-                      _buildgrass(
-                          'https://w7.pngwing.com/pngs/1014/112/png-transparent-green-leaves-rosemary-herb-thymes-hair-herbs-food-people-grass-thumbnail.png',
-                          'Grass',
-                          20, () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => ProductOverviewScreen(
-                                  productName: 'Grass',
-                                  productImage:
-                                      'https://w7.pngwing.com/pngs/1014/112/png-transparent-green-leaves-rosemary-herb-thymes-hair-herbs-food-people-grass-thumbnail.png',
-                                )));
-                      }),
-                      _buildgrass(
-                          'https://w7.pngwing.com/pngs/1014/112/png-transparent-green-leaves-rosemary-herb-thymes-hair-herbs-food-people-grass-thumbnail.png',
-                          'Grass',
-                          20, () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => ProductOverviewScreen(
-                                  productName: 'Grass',
-                                  productImage:
-                                      'https://w7.pngwing.com/pngs/1014/112/png-transparent-green-leaves-rosemary-herb-thymes-hair-herbs-food-people-grass-thumbnail.png',
-                                )));
-                      }),
-                      _buildgrass(
-                          'https://w7.pngwing.com/pngs/1014/112/png-transparent-green-leaves-rosemary-herb-thymes-hair-herbs-food-people-grass-thumbnail.png',
-                          'Grass',
-                          20, () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => ProductOverviewScreen(
-                                  productName: 'Grass',
-                                  productImage:
-                                      'https://w7.pngwing.com/pngs/1014/112/png-transparent-green-leaves-rosemary-herb-thymes-hair-herbs-food-people-grass-thumbnail.png',
-                                )));
-                      }),
-                    ]),
+                    child: Row(
+                        children: productProvider!.herbProductList
+                            .map(
+                              ((item) => _buildgrass(
+                                      item.productImage!,
+                                      item.productName!,
+                                      item.productPrice!, () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ProductOverviewScreen(
+                                                  productName:
+                                                      item.productName!,
+                                                  productImage:
+                                                      item.productImage!,
+                                                )));
+                                  })),
+                            )
+                            .toList()),
                   ),
                 ),
                 Row(
@@ -316,52 +282,25 @@ class HomeScreen extends StatelessWidget {
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Center(
-                    child: Row(children: [
-                      _buildroot(
-                          'https://png.pngtree.com/png-vector/20200916/ourmid/pngtree-organic-green-vegetable-mix-png-image_2344535.jpg',
-                          'root',
-                          47, () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => ProductOverviewScreen(
-                                  productName: 'root',
-                                  productImage:
-                                      'https://png.pngtree.com/png-vector/20200916/ourmid/pngtree-organic-green-vegetable-mix-png-image_2344535.jpg',
-                                )));
-                      }),
-                      _buildroot(
-                          'https://png.pngtree.com/png-vector/20200916/ourmid/pngtree-organic-green-vegetable-mix-png-image_2344535.jpg',
-                          'root',
-                          47, () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => ProductOverviewScreen(
-                                  productName: 'root',
-                                  productImage:
-                                      'https://png.pngtree.com/png-vector/20200916/ourmid/pngtree-organic-green-vegetable-mix-png-image_2344535.jpg',
-                                )));
-                      }),
-                      _buildroot(
-                          'https://png.pngtree.com/png-vector/20200916/ourmid/pngtree-organic-green-vegetable-mix-png-image_2344535.jpg',
-                          'root',
-                          47, () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => ProductOverviewScreen(
-                                  productName: 'root',
-                                  productImage:
-                                      'https://png.pngtree.com/png-vector/20200916/ourmid/pngtree-organic-green-vegetable-mix-png-image_2344535.jpg',
-                                )));
-                      }),
-                      _buildroot(
-                          'https://png.pngtree.com/png-vector/20200916/ourmid/pngtree-organic-green-vegetable-mix-png-image_2344535.jpg',
-                          'root',
-                          47, () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => ProductOverviewScreen(
-                                  productName: 'root',
-                                  productImage:
-                                      'https://png.pngtree.com/png-vector/20200916/ourmid/pngtree-organic-green-vegetable-mix-png-image_2344535.jpg',
-                                )));
-                      }),
-                    ]),
+                    child: Row(
+                        children: productProvider!.vegetableProductList
+                            .map(
+                              ((item) => _buildroot(
+                                      item.productImage!,
+                                      item.productName!,
+                                      item.productPrice!, () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ProductOverviewScreen(
+                                                  productName:
+                                                      item.productName!,
+                                                  productImage:
+                                                      item.productImage!,
+                                                )));
+                                  })),
+                            )
+                            .toList()),
                   ),
                 ),
                 Row(
@@ -380,52 +319,25 @@ class HomeScreen extends StatelessWidget {
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Center(
-                    child: Row(children: [
-                      _buildHerb(
-                          'https://w7.pngwing.com/pngs/940/684/png-transparent-basil-italian-cuisine-pesto-pizza-herb-mint-leaf-vegetable-food-leaf-thumbnail.png',
-                          'Herb',
-                          30, () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => ProductOverviewScreen(
-                                  productName: 'Herb',
-                                  productImage:
-                                      'https://w7.pngwing.com/pngs/940/684/png-transparent-basil-italian-cuisine-pesto-pizza-herb-mint-leaf-vegetable-food-leaf-thumbnail.png',
-                                )));
-                      }),
-                      _buildHerb(
-                          'https://w7.pngwing.com/pngs/940/684/png-transparent-basil-italian-cuisine-pesto-pizza-herb-mint-leaf-vegetable-food-leaf-thumbnail.png',
-                          'Herb',
-                          30, () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => ProductOverviewScreen(
-                                  productName: 'Herb',
-                                  productImage:
-                                      'https://w7.pngwing.com/pngs/940/684/png-transparent-basil-italian-cuisine-pesto-pizza-herb-mint-leaf-vegetable-food-leaf-thumbnail.png',
-                                )));
-                      }),
-                      _buildHerb(
-                          'https://w7.pngwing.com/pngs/940/684/png-transparent-basil-italian-cuisine-pesto-pizza-herb-mint-leaf-vegetable-food-leaf-thumbnail.png',
-                          'Herb',
-                          30, () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => ProductOverviewScreen(
-                                  productName: 'Herb',
-                                  productImage:
-                                      'https://w7.pngwing.com/pngs/940/684/png-transparent-basil-italian-cuisine-pesto-pizza-herb-mint-leaf-vegetable-food-leaf-thumbnail.png',
-                                )));
-                      }),
-                      _buildHerb(
-                          'https://w7.pngwing.com/pngs/940/684/png-transparent-basil-italian-cuisine-pesto-pizza-herb-mint-leaf-vegetable-food-leaf-thumbnail.png',
-                          'Herb',
-                          30, () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => ProductOverviewScreen(
-                                  productName: 'Herb',
-                                  productImage:
-                                      'https://w7.pngwing.com/pngs/940/684/png-transparent-basil-italian-cuisine-pesto-pizza-herb-mint-leaf-vegetable-food-leaf-thumbnail.png',
-                                )));
-                      }),
-                    ]),
+                    child: Row(
+                        children: productProvider!.herbProductList
+                            .map(
+                              ((item) => _buildHerb(
+                                      item.productImage!,
+                                      item.productName!,
+                                      item.productPrice!, () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ProductOverviewScreen(
+                                                  productName:
+                                                      item.productName!,
+                                                  productImage:
+                                                      item.productImage!,
+                                                )));
+                                  })),
+                            )
+                            .toList()),
                   ),
                 ),
               ]),

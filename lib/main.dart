@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
 import 'package:vegi_app/Config/Colors.dart';
+import 'package:vegi_app/Providers/product_provider.dart';
 import 'auth/sign_in.dart';
 
 void main() async {
@@ -15,16 +17,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: SignIn(),
-      theme: ThemeData(
-          appBarTheme: AppBarTheme(
-              color: primaryColor,
-              iconTheme: IconThemeData(color: textColor),
-              titleTextStyle: TextStyle(color: Colors.black)),
-          primaryColor: primaryColor,
-          scaffoldBackgroundColor: scaffoldBackgroundColor),
+    return ChangeNotifierProvider(
+      create: ((context) => ProductProvider()),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: SignIn(),
+        theme: ThemeData(
+            appBarTheme: AppBarTheme(
+                color: primaryColor,
+                iconTheme: IconThemeData(color: textColor),
+                titleTextStyle: TextStyle(color: Colors.black)),
+            primaryColor: primaryColor,
+            scaffoldBackgroundColor: scaffoldBackgroundColor),
+      ),
     );
   }
 }
