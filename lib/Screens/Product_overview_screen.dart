@@ -145,8 +145,11 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                                 SizedBox(
                                   width: 10,
                                 ),
-                                Icon(Icons.remove,
-                                    size: 15, color: primaryColor, weight: 2.0),
+                                Icon(
+                                  Icons.remove,
+                                  size: 15,
+                                  color: primaryColor,
+                                ),
                               ]),
                             )
                           ]))

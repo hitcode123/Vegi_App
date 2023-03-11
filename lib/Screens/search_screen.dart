@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vegi_app/Config/Colors.dart';
-import 'package:vegi_app/Widgets/Search_item.dart';
+import '../Widgets/single_utility.dart';
 
 class Search extends StatelessWidget {
   const Search({Key? key}) : super(key: key);
@@ -48,7 +48,9 @@ class Search extends StatelessWidget {
           height: 2,
           thickness: 2,
         ),
-        SearchItem(),
+        SingleUtility(
+          isBool: true,
+        ),
         SizedBox(
           height: 10,
         ),
@@ -56,7 +58,9 @@ class Search extends StatelessWidget {
           height: 2,
           thickness: 2,
         ),
-        SearchItem(),
+        SingleUtility(
+          isBool: true,
+        ),
         SizedBox(
           height: 10,
         ),
@@ -64,7 +68,9 @@ class Search extends StatelessWidget {
           height: 2,
           thickness: 2,
         ),
-        SearchItem(),
+        SingleUtility(
+          isBool: true,
+        ),
         SizedBox(
           height: 10,
         ),
@@ -72,7 +78,9 @@ class Search extends StatelessWidget {
           height: 2,
           thickness: 2,
         ),
-        SearchItem(),
+        SingleUtility(
+          isBool: true,
+        ),
       ]),
     );
   }

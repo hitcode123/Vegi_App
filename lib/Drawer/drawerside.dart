@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import '../Screens/review_cart_screen.dart';
 
 import '../Screens/home_screen.dart';
-import '../Screens/my_profile.dart';
+import '../Screens/my_profile_screen.dart';
 
 class DrawerSide extends StatelessWidget {
   const DrawerSide({Key? key}) : super(key: key);
@@ -69,7 +70,11 @@ class DrawerSide extends StatelessWidget {
             child: Listtile(icon: Icons.home_outlined, title: "home"),
             onTap: () => Navigator.of(context)
                 .push(MaterialPageRoute(builder: (context) => HomeScreen()))),
-        Listtile(icon: Icons.shop_outlined, title: "Review Cart"),
+        GestureDetector(
+          child: Listtile(icon: Icons.shop_outlined, title: "Review Cart"),
+          onTap: () => Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => ReviewCart())),
+        ),
         GestureDetector(
             child: Listtile(icon: Icons.person_outline, title: "My Profile"),
             onTap: () => Navigator.of(context)
