@@ -7,8 +7,11 @@ enum SiginCharacter { fill, outline }
 class ProductOverviewScreen extends StatefulWidget {
   final String productName;
   final String productImage;
+  final int productPrice;
   ProductOverviewScreen(
-      {required this.productName, required this.productImage});
+      {required this.productName,
+      required this.productImage,
+      required this.productPrice});
 
   @override
   State<ProductOverviewScreen> createState() => _ProductOverviewScreenState();
@@ -81,7 +84,7 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                 child: Column(children: [
                   ListTile(
                     title: Text(widget.productName),
-                    subtitle: Text('\$50'),
+                    subtitle: Text('\$${widget.productPrice}'),
                   ),
                   Container(
                     height: 150,
@@ -126,7 +129,7 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                                   });
                                 },
                               ),
-                              Text("\$50"),
+                              Text("\$${widget.productPrice}"),
                             ]),
                             Container(
                               padding: EdgeInsets.symmetric(

@@ -1,12 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:vegi_app/Config/Colors.dart';
 import '../Widgets/single_utility.dart';
+import '../Models/product_model.dart';
 
-class Search extends StatelessWidget {
-  const Search({Key? key}) : super(key: key);
+class Search extends StatefulWidget {
+  // ignore: non_constant_identifier_names
+  List<ProductModel> searchList;
+  Search({required this.searchList});
+
+  @override
+  State<Search> createState() => _SearchState();
+}
+
+class _SearchState extends State<Search> {
+  String query = "";
+  searchItem(String query) {
+    List<ProductModel>? productsSearched = widget.searchList
+        .where((element) => element.productName!.toLowerCase().contains(query))
+        .toList();
+    return productsSearched;
+  }
 
   @override
   Widget build(BuildContext context) {
+    List<ProductModel> _searchList = searchItem(query);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -29,6 +45,11 @@ class Search extends StatelessWidget {
           child: Container(
             height: 42,
             child: TextField(
+              onChanged: (value) {
+                setState(() {
+                  query = value.toLowerCase();
+                });
+              },
               decoration: InputDecoration(
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(30),
@@ -41,46 +62,27 @@ class Search extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(
-          height: 10,
-        ),
-        Divider(
-          height: 2,
-          thickness: 2,
-        ),
-        SingleUtility(
-          isBool: true,
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        Divider(
-          height: 2,
-          thickness: 2,
-        ),
-        SingleUtility(
-          isBool: true,
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        Divider(
-          height: 2,
-          thickness: 2,
-        ),
-        SingleUtility(
-          isBool: true,
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        Divider(
-          height: 2,
-          thickness: 2,
-        ),
-        SingleUtility(
-          isBool: true,
-        ),
+        Column(
+          children: _searchList
+              .map((productdata) => Column(
+                    children: [
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Divider(
+                        height: 2,
+                        thickness: 2,
+                      ),
+                      SingleUtility(
+                        isBool: true,
+                        productImage: productdata.productImage!,
+                        productName: productdata.productName!,
+                        productPrice: productdata.productPrice!,
+                      ),
+                    ],
+                  ))
+              .toList(),
+        )
       ]),
     );
   }

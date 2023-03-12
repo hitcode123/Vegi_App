@@ -20,12 +20,12 @@ class ReviewCart extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            SingleUtility(
-              isBool: false,
-            ),
-            SingleUtility(
-              isBool: false,
-            ),
+            // SingleUtility(
+            //   isBool: false,
+            // ),
+            // SingleUtility(
+            //   isBool: false,
+            // ),
             SizedBox(
               height: 10,
             ),

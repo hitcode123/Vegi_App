@@ -6,6 +6,7 @@ class ProductProvider with ChangeNotifier {
   List<ProductModel> _fruitproductList = [];
   List<ProductModel> _herbproductList = [];
   List<ProductModel> _vegetableproductList = [];
+  final List<ProductModel> _searchList = [];
   ProductModel? productModel;
   fetchfruitsProducts() async {
     final List<ProductModel> newList = [];
@@ -19,6 +20,7 @@ class ProductProvider with ChangeNotifier {
           productPrice: productElement.get("productPrice"));
 
       newList.add(productModel!);
+      _searchList.add(productModel!);
     });
     _fruitproductList = newList;
     notifyListeners();
@@ -36,6 +38,7 @@ class ProductProvider with ChangeNotifier {
           productPrice: productElement.get("productPrice"));
 
       newList.add(productModel!);
+      _searchList.add(productModel!);
     });
     _herbproductList = newList;
     notifyListeners();
@@ -53,6 +56,7 @@ class ProductProvider with ChangeNotifier {
           productPrice: productElement.get("productPrice"));
 
       newList.add(productModel!);
+      _searchList.add(productModel!);
     });
     _vegetableproductList = newList;
     notifyListeners();
@@ -68,5 +72,9 @@ class ProductProvider with ChangeNotifier {
 
   List<ProductModel> get vegetableProductList {
     return _vegetableproductList;
+  }
+
+  List<ProductModel> get getallProductList {
+    return _searchList;
   }
 }

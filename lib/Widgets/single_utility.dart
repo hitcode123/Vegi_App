@@ -4,7 +4,15 @@ import 'package:vegi_app/Config/Colors.dart';
 
 class SingleUtility extends StatelessWidget {
   bool isBool = false;
-  SingleUtility({required this.isBool});
+  final String productImage;
+  final String productName;
+  final int productPrice;
+
+  SingleUtility(
+      {required this.isBool,
+      required this.productImage,
+      required this.productName,
+      required this.productPrice});
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -19,8 +27,7 @@ class SingleUtility extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
                 child: FittedBox(
                   fit: BoxFit.cover,
-                  child: Image.network(
-                      "https://thumbs.dreamstime.com/b/mixed-fresh-herbs-14544467.jpg"),
+                  child: Image.network(productImage),
                 ),
               ),
             ),
@@ -43,7 +50,7 @@ class SingleUtility extends StatelessWidget {
                       Column(
                         children: [
                           Text(
-                            "productName",
+                            productName,
                             style: TextStyle(
                                 color: textColor, fontWeight: FontWeight.bold),
                           ),
@@ -70,7 +77,7 @@ class SingleUtility extends StatelessWidget {
                                     Expanded(
                                         // ignore: prefer_const_constructors
                                         child: Text(
-                                      "50 gram",
+                                      productPrice.toString(),
                                       style: TextStyle(
                                           color: Colors.grey, fontSize: 14),
                                     )),
@@ -83,7 +90,7 @@ class SingleUtility extends StatelessWidget {
                                     )
                                   ]),
                             )
-                          : Text("50 gram"),
+                          : Text("${productPrice} gram"),
                     ]),
               ),
             )),

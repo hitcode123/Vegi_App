@@ -44,13 +44,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildgrass(String productImage, String productName, int productPrice,
       VoidCallback? ontap) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 8.0, bottom: 8),
-      child: SingalProduct(
-          productImage: productImage,
-          productName: productName,
-          ontap: ontap,
-          productPrice: productPrice),
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0, bottom: 8),
+          child: SingalProduct(
+              productImage: productImage,
+              productName: productName,
+              ontap: ontap,
+              productPrice: productPrice),
+        ),
+      ],
     );
   }
 
@@ -91,8 +95,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   size: 17,
                 ),
                 onTap: () {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (context) => Search()));
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => Search(
+                          searchList: productProvider!.getallProductList)));
                 },
               ),
             ),
@@ -196,12 +201,20 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Herbs Seasoning',
+                      'Fruits Seasoning',
                       style: TextStyle(fontWeight: FontWeight.w700),
                     ),
-                    Text(
-                      'view all',
-                      style: TextStyle(color: Colors.grey),
+                    GestureDetector(
+                      child: Text(
+                        'view all',
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: ((context) => Search(
+                                  searchList: productProvider!.fruitProductList,
+                                ))));
+                      },
                     ),
                   ],
                 ),
@@ -223,6 +236,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       item.productName!,
                                                   productImage:
                                                       item.productImage!,
+                                                  productPrice:
+                                                      item.productPrice!,
                                                 )));
                                   })),
                             )
@@ -231,14 +246,23 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  // ignore: prefer_const_literals_to_create_immutables
                   children: [
                     Text(
                       'Herbs Seasoning',
                       style: TextStyle(fontWeight: FontWeight.w700),
                     ),
-                    Text(
-                      'view all',
-                      style: TextStyle(color: Colors.grey),
+                    GestureDetector(
+                      child: Text(
+                        'view all',
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: ((context) => Search(
+                                  searchList: productProvider.herbProductList,
+                                ))));
+                      },
                     ),
                   ],
                 ),
@@ -260,6 +284,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       item.productName!,
                                                   productImage:
                                                       item.productImage!,
+                                                  productPrice:
+                                                      item.productPrice!,
                                                 )));
                                   })),
                             )
@@ -270,12 +296,21 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Herbs Seasoning',
+                      'Vegetable Seasoning',
                       style: TextStyle(fontWeight: FontWeight.w700),
                     ),
-                    Text(
-                      'view all',
-                      style: TextStyle(color: Colors.grey),
+                    GestureDetector(
+                      child: Text(
+                        'view all',
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: ((context) => Search(
+                                  searchList:
+                                      productProvider.vegetableProductList,
+                                ))));
+                      },
                     ),
                   ],
                 ),
@@ -297,43 +332,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       item.productName!,
                                                   productImage:
                                                       item.productImage!,
-                                                )));
-                                  })),
-                            )
-                            .toList()),
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Herbs Seasoning',
-                      style: TextStyle(fontWeight: FontWeight.w700),
-                    ),
-                    Text(
-                      'view all',
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                  ],
-                ),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Center(
-                    child: Row(
-                        children: productProvider!.herbProductList
-                            .map(
-                              ((item) => _buildHerb(
-                                      item.productImage!,
-                                      item.productName!,
-                                      item.productPrice!, () {
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                ProductOverviewScreen(
-                                                  productName:
-                                                      item.productName!,
-                                                  productImage:
-                                                      item.productImage!,
+                                                  productPrice:
+                                                      item.productPrice!,
                                                 )));
                                   })),
                             )
