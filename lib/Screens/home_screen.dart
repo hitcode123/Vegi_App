@@ -270,7 +270,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   scrollDirection: Axis.horizontal,
                   child: Center(
                     child: Row(
-                        children: productProvider!.herbProductList
+                        children: productProvider.herbProductList
                             .map(
                               ((item) => _buildgrass(
                                       item.productImage!,
@@ -318,7 +318,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   scrollDirection: Axis.horizontal,
                   child: Center(
                     child: Row(
-                        children: productProvider!.vegetableProductList
+                        children: productProvider.vegetableProductList
                             .map(
                               ((item) => _buildroot(
                                       item.productImage!,
