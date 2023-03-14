@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:vegi_app/Widgets/count.dart';
 import '../Config/Colors.dart';
 
 class SingalProduct extends StatelessWidget {
+  final String? productId;
   final String? productImage;
   final String? productName;
   final int? productPrice;
   final VoidCallback? ontap;
   SingalProduct(
-      {required this.productImage,
+      {required this.productId,
+      this.productImage,
       required this.productName,
       required this.ontap,
       required this.productPrice});
@@ -97,31 +100,36 @@ class SingalProduct extends StatelessWidget {
                                   SizedBox(
                                     width: 8,
                                   ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        border: Border.all(color: Colors.grey),
-                                        borderRadius: BorderRadius.circular(8)),
-                                    child: Row(
-                                      children: [
-                                        Center(
-                                          child: Icon(
-                                            Icons.add,
-                                            size: 20,
-                                            color: Colors.yellow,
-                                          ),
-                                        ),
-                                        Text(
-                                          "1",
-                                          style: TextStyle(color: Colors.grey),
-                                        ),
-                                        Icon(
-                                          Icons.remove,
-                                          size: 20,
-                                          color: Colors.yellow,
-                                        )
-                                      ],
-                                    ),
-                                  ),
+                                  Count(
+                                      productId: productId,
+                                      productImage: productImage,
+                                      productName: productName,
+                                      productPrice: productPrice),
+                                  // Container(
+                                  //   decoration: BoxDecoration(
+                                  //       border: Border.all(color: Colors.grey),
+                                  //       borderRadius: BorderRadius.circular(8)),
+                                  //   child: Row(
+                                  //     children: [
+                                  //       Center(
+                                  //         child: Icon(
+                                  //           Icons.add,
+                                  //           size: 20,
+                                  //           color: Colors.yellow,
+                                  //         ),
+                                  //       ),
+                                  //       Text(
+                                  //         "1",
+                                  //         style: TextStyle(color: Colors.grey),
+                                  //       ),
+                                  //       Icon(
+                                  //         Icons.remove,
+                                  //         size: 20,
+                                  //         color: Colors.yellow,
+                                  //       )
+                                  //     ],
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                             ],

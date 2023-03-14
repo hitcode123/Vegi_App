@@ -4,6 +4,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:vegi_app/Config/Colors.dart';
 import 'package:vegi_app/Providers/product_provider.dart';
+import 'package:vegi_app/Providers/user_provider.dart';
+import '../Providers/review_cart_provider.dart';
 import 'auth/sign_in.dart';
 
 void main() async {
@@ -17,8 +19,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: ((context) => ProductProvider()),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<ProductProvider>(
+            create: (context) => ProductProvider()),
+        ChangeNotifierProvider<UserProvider>(
+            create: (context) => UserProvider()),
+        ChangeNotifierProvider<ReviewCartProvider>(
+            create: (context) => ReviewCartProvider())
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         home: SignIn(),

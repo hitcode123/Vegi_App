@@ -30,11 +30,12 @@ class _HomeScreenState extends State<HomeScreen> {
     productProvider.fetchfruitsProducts();
   }
 
-  Widget _buildHerb(String productImage, String productName, int productPrice,
-      VoidCallback? ontap) {
+  Widget _buildHerb(String productId, String productImage, String productName,
+      int productPrice, VoidCallback? ontap) {
     return Padding(
       padding: const EdgeInsets.only(top: 8.0, bottom: 8),
       child: SingalProduct(
+          productId: productId,
           productImage: productImage,
           productName: productName,
           ontap: ontap,
@@ -42,13 +43,14 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildgrass(String productImage, String productName, int productPrice,
-      VoidCallback? ontap) {
+  Widget _buildgrass(String productId, String productImage, String productName,
+      int productPrice, VoidCallback? ontap) {
     return Column(
       children: [
         Padding(
           padding: const EdgeInsets.only(top: 8.0, bottom: 8),
           child: SingalProduct(
+              productId: productId,
               productImage: productImage,
               productName: productName,
               ontap: ontap,
@@ -58,11 +60,12 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildroot(String productImage, String productName, int productPrice,
-      VoidCallback? ontap) {
+  Widget _buildroot(String productId, String productImage, String productName,
+      int productPrice, VoidCallback? ontap) {
     return Padding(
       padding: const EdgeInsets.only(top: 8.0, bottom: 8),
       child: SingalProduct(
+          productId: productId,
           productImage: productImage,
           productName: productName,
           ontap: ontap,
@@ -207,7 +210,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     GestureDetector(
                       child: Text(
                         'view all',
-                        style: TextStyle(color: Colors.grey),
+                        style: TextStyle(color: Colors.grey[850]),
                       ),
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
@@ -225,6 +228,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: productProvider!.fruitProductList
                             .map(
                               ((item) => _buildHerb(
+                                      item.productId!,
                                       item.productImage!,
                                       item.productName!,
                                       item.productPrice!, () {
@@ -255,7 +259,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     GestureDetector(
                       child: Text(
                         'view all',
-                        style: TextStyle(color: Colors.grey),
+                        style: TextStyle(color: Colors.grey[850]),
                       ),
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
@@ -273,6 +277,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: productProvider.herbProductList
                             .map(
                               ((item) => _buildgrass(
+                                      item.productId!,
                                       item.productImage!,
                                       item.productName!,
                                       item.productPrice!, () {
@@ -302,7 +307,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     GestureDetector(
                       child: Text(
                         'view all',
-                        style: TextStyle(color: Colors.grey),
+                        style: TextStyle(color: Colors.grey[850]),
                       ),
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
@@ -321,6 +326,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: productProvider.vegetableProductList
                             .map(
                               ((item) => _buildroot(
+                                      item.productId!,
                                       item.productImage!,
                                       item.productName!,
                                       item.productPrice!, () {

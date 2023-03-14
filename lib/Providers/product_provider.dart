@@ -15,6 +15,7 @@ class ProductProvider with ChangeNotifier {
         await FirebaseFirestore.instance.collection("FruitProducts").get();
     value.docs.forEach((productElement) {
       productModel = ProductModel(
+          productId: productElement.get("productId"),
           productImage: productElement.get("productImage"),
           productName: productElement.get("productName"),
           productPrice: productElement.get("productPrice"));
@@ -33,6 +34,7 @@ class ProductProvider with ChangeNotifier {
         await FirebaseFirestore.instance.collection("HerbProduct").get();
     value.docs.forEach((productElement) {
       productModel = ProductModel(
+          productId: productElement.get("productId"),
           productImage: productElement.get("productImage"),
           productName: productElement.get("productName"),
           productPrice: productElement.get("productPrice"));
@@ -51,6 +53,7 @@ class ProductProvider with ChangeNotifier {
         await FirebaseFirestore.instance.collection("VegetableProduct").get();
     value.docs.forEach((productElement) {
       productModel = ProductModel(
+          productId: productElement.get("productId"),
           productImage: productElement.get("productImage"),
           productName: productElement.get("productName"),
           productPrice: productElement.get("productPrice"));

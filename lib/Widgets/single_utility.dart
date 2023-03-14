@@ -1,20 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:provider/provider.dart';
 import 'package:vegi_app/Config/Colors.dart';
+import 'package:vegi_app/Providers/review_cart_provider.dart';
 
 class SingleUtility extends StatelessWidget {
   bool isBool = false;
   final String productImage;
   final String productName;
   final int productPrice;
+  Function onDelete;
 
   SingleUtility(
       {required this.isBool,
       required this.productImage,
       required this.productName,
-      required this.productPrice});
+      required this.productPrice,
+      required this.onDelete});
+
+  // set up the button
+
   @override
   Widget build(BuildContext context) {
+    ReviewCartProvider reviewCartProvider =
+        Provider.of<ReviewCartProvider>(context);
     return Row(
       children: [
         Expanded(
@@ -107,29 +115,21 @@ class SingleUtility extends StatelessWidget {
                       ),
                 margin: EdgeInsets.only(right: 5),
                 child: isBool == false
-                    ? Container(
-                        height: 25,
-                        width: 50,
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
-                            borderRadius: BorderRadius.circular(30)),
-                        child: Center(
-                            child: Row(
-                          children: [
-                            Icon(
-                              Icons.add,
-                              size: 20,
+                    ? Center(
+                        child: Row(
+                        children: [
+                          InkWell(
+                            child: Icon(
+                              Icons.delete,
+                              size: 30,
                               color: primaryColor,
                             ),
-                            Text(
-                              "ADD",
-                              style: TextStyle(
-                                color: primaryColor,
-                              ),
-                            )
-                          ],
-                        )),
-                      )
+                            onTap: () {
+                              onDelete();
+                            },
+                          )
+                        ],
+                      ))
                     : Center(
                         child: Column(
                           children: [
@@ -164,7 +164,7 @@ class SingleUtility extends StatelessWidget {
                                   )
                                 ],
                               )),
-                            )
+                            ),
                           ],
                         ),
                       )))
