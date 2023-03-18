@@ -8,12 +8,14 @@ class SingalProduct extends StatelessWidget {
   final String? productName;
   final int? productPrice;
   final VoidCallback? ontap;
-  SingalProduct(
-      {required this.productId,
-      this.productImage,
-      required this.productName,
-      required this.ontap,
-      required this.productPrice});
+
+  SingalProduct({
+    required this.productId,
+    this.productImage,
+    required this.productName,
+    required this.ontap,
+    required this.productPrice,
+  });
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -68,69 +70,113 @@ class SingalProduct extends StatelessWidget {
                               SizedBox(
                                 height: 5,
                               ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      padding: EdgeInsets.only(left: 5),
-                                      height: 25,
-                                      decoration: BoxDecoration(
-                                        border: Border.all(color: Colors.grey),
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                              child: Text(
-                                            '50 Gram',
-                                            style: TextStyle(fontSize: 11),
-                                          )),
-                                          // ignore: prefer_const_constructors
-                                          Center(
-                                            child: Icon(
-                                              Icons.arrow_drop_down,
-                                              size: 20,
-                                              color: Colors.yellow,
+                              InkWell(
+                                onTap: () {
+                                  showModalBottomSheet(
+                                      context: context,
+                                      builder: (context) {
+                                        return Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: <Widget>[
+                                            ListTile(
+                                              leading: new Icon(Icons.photo),
+                                              title: new Text('Photo'),
+                                              onTap: () {
+                                                Navigator.pop(context);
+                                              },
                                             ),
-                                          ),
-                                        ],
+                                            ListTile(
+                                              leading:
+                                                  new Icon(Icons.music_note),
+                                              title: new Text('Music'),
+                                              onTap: () {
+                                                Navigator.pop(context);
+                                              },
+                                            ),
+                                            ListTile(
+                                              leading: new Icon(Icons.videocam),
+                                              title: new Text('Video'),
+                                              onTap: () {
+                                                Navigator.pop(context);
+                                              },
+                                            ),
+                                            ListTile(
+                                              leading: new Icon(Icons.share),
+                                              title: new Text('Share'),
+                                              onTap: () {
+                                                Navigator.pop(context);
+                                              },
+                                            ),
+                                          ],
+                                        );
+                                      });
+                                },
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        padding: EdgeInsets.only(left: 5),
+                                        height: 25,
+                                        decoration: BoxDecoration(
+                                          border:
+                                              Border.all(color: Colors.grey),
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                                child: Text(
+                                              '50 Gram',
+                                              style: TextStyle(fontSize: 11),
+                                            )),
+                                            // ignore: prefer_const_constructors
+                                            Center(
+                                              child: Icon(
+                                                Icons.arrow_drop_down,
+                                                size: 20,
+                                                color: Colors.yellow,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  SizedBox(
-                                    width: 8,
-                                  ),
-                                  Count(
-                                      productId: productId,
-                                      productImage: productImage,
-                                      productName: productName,
-                                      productPrice: productPrice),
-                                  // Container(
-                                  //   decoration: BoxDecoration(
-                                  //       border: Border.all(color: Colors.grey),
-                                  //       borderRadius: BorderRadius.circular(8)),
-                                  //   child: Row(
-                                  //     children: [
-                                  //       Center(
-                                  //         child: Icon(
-                                  //           Icons.add,
-                                  //           size: 20,
-                                  //           color: Colors.yellow,
-                                  //         ),
-                                  //       ),
-                                  //       Text(
-                                  //         "1",
-                                  //         style: TextStyle(color: Colors.grey),
-                                  //       ),
-                                  //       Icon(
-                                  //         Icons.remove,
-                                  //         size: 20,
-                                  //         color: Colors.yellow,
-                                  //       )
-                                  //     ],
-                                  //   ),
-                                  // ),
-                                ],
+                                    SizedBox(
+                                      width: 8,
+                                    ),
+                                    Count(
+                                        productId: productId,
+                                        productImage: productImage,
+                                        productName: productName,
+                                        productPrice: productPrice),
+                                    // Container(
+                                    //   decoration: BoxDecoration(
+                                    //       border: Border.all(color: Colors.grey),
+                                    //       borderRadius: BorderRadius.circular(8)),
+                                    //   child: Row(
+                                    //     children: [
+                                    //       Center(
+                                    //         child: Icon(
+                                    //           Icons.add,
+                                    //           size: 20,
+                                    //           color: Colors.yellow,
+                                    //         ),
+                                    //       ),
+                                    //       Text(
+                                    //         "1",
+                                    //         style: TextStyle(color: Colors.grey),
+                                    //       ),
+                                    //       Icon(
+                                    //         Icons.remove,
+                                    //         size: 20,
+                                    //         color: Colors.yellow,
+                                    //       )
+                                    //     ],
+                                    //   ),
+                                    // ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),

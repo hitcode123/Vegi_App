@@ -1,5 +1,13 @@
+// import 'dart:html';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:vegi_app/Config/Colors.dart';
+import 'package:vegi_app/Providers/review_cart_provider.dart';
+import 'package:vegi_app/Providers/wishlist_provider.dart';
+import 'package:vegi_app/Screens/review_cart_screen.dart';
 import 'package:vegi_app/auth/sign_in.dart';
 
 enum SiginCharacter { fill, outline }
@@ -8,10 +16,13 @@ class ProductOverviewScreen extends StatefulWidget {
   final String productName;
   final String productImage;
   final int productPrice;
+  final String productId;
+
   ProductOverviewScreen(
       {required this.productName,
       required this.productImage,
-      required this.productPrice});
+      required this.productPrice,
+      required this.productId});
 
   @override
   State<ProductOverviewScreen> createState() => _ProductOverviewScreenState();
@@ -19,54 +30,105 @@ class ProductOverviewScreen extends StatefulWidget {
 
 class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
   SiginCharacter _character = SiginCharacter.fill;
+  WishListProvider? wishListProvider;
+  ReviewCartProvider? reviewCart;
+  bool wishList = false;
+
+  void getWishListbool() {
+    FirebaseFirestore.instance
+        .collection("WishListCart")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection("YourWishListCart")
+        .doc(widget.productId)
+        .get()
+        .then((value) => {
+              if (this.mounted)
+                {
+                  if (value.exists)
+                    {
+                      setState(() {
+                        wishList = value.get("wishList");
+                      })
+                    }
+                }
+            });
+  }
 
   Widget ButtonNavigationBar(
       {Color? iconColor,
       Color? backgroundColor,
       Color? color,
       String? title,
-      IconData? iconData}) {
+      IconData? iconData,
+      VoidCallback? onTap}) {
     return Expanded(
-        child: Container(
-      padding: EdgeInsets.all(20),
-      color: backgroundColor,
-      child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-        Icon(
-          iconData,
-          size: 17,
-          color: iconColor,
-        ),
-        SizedBox(
-          width: 5,
-        ),
-        Text(
-          title!,
-          style: TextStyle(color: color),
-        ),
-      ]),
+        child: GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.all(20),
+        color: backgroundColor,
+        child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Icon(
+            iconData,
+            size: 17,
+            color: iconColor,
+          ),
+          SizedBox(
+            width: 5,
+          ),
+          Text(
+            title!,
+            style: TextStyle(color: color),
+          ),
+        ]),
+      ),
     ));
   }
 
   @override
   Widget build(BuildContext context) {
+    wishListProvider = Provider.of<WishListProvider>(context);
+
+    getWishListbool();
     return Scaffold(
         backgroundColor: Colors.white,
-        bottomNavigationBar: Row(
-          children: [
-            ButtonNavigationBar(
-                backgroundColor: textColor,
-                color: Colors.white70,
-                iconColor: Colors.grey,
-                title: 'Add to wishlist',
-                iconData: Icons.favorite_outline),
-            ButtonNavigationBar(
-                backgroundColor: primaryColor,
-                color: textColor,
-                iconColor: Colors.white70,
-                title: 'Go to Cart',
-                iconData: Icons.shop_outlined),
-          ],
-        ),
+        bottomNavigationBar: Row(children: [
+          ButtonNavigationBar(
+              backgroundColor: textColor,
+              color: Colors.white70,
+              iconColor: Colors.grey,
+              title: 'Add to wishlist',
+              iconData:
+                  wishList ? Icons.favorite : Icons.favorite_border_outlined,
+              onTap: () {
+                print(wishList);
+                setState(() {
+                  wishList = !wishList;
+                  if (wishList == true) {
+                    wishListProvider?.addWishListData(
+                        wishList: wishList,
+                        wishListId: widget.productId,
+                        wishListImage: widget.productImage,
+                        wishListName: widget.productName,
+                        wishListPrice: widget.productPrice,
+                        wishListQuantity: 1);
+                  } else {
+                    print("I was runned");
+                    wishListProvider?.getdeleted(widget.productId);
+                  }
+                });
+              }),
+          ButtonNavigationBar(
+              backgroundColor: primaryColor,
+              color: textColor,
+              iconColor: Colors.white70,
+              title: 'Go to Cart',
+              iconData: Icons.shop_outlined,
+              onTap: (() => {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => ReviewCart()))
+                  }))
+        ]),
         appBar: AppBar(
           iconTheme: IconThemeData(color: textColor),
           title: Text(
@@ -142,9 +204,12 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                                 SizedBox(
                                   width: 10,
                                 ),
-                                Text(
-                                  "Add",
-                                  style: TextStyle(color: primaryColor),
+                                InkWell(
+                                  child: Text(
+                                    "Add",
+                                    style: TextStyle(color: primaryColor),
+                                  ),
+                                  onTap: () {},
                                 ),
                                 SizedBox(
                                   width: 10,

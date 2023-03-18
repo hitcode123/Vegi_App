@@ -2,20 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:vegi_app/Config/Colors.dart';
 import 'package:provider/provider.dart';
 import 'package:vegi_app/Providers/review_cart_provider.dart';
+import 'package:vegi_app/Providers/wishlist_provider.dart';
 import 'package:vegi_app/Widgets/single_utility.dart';
 
+import '../Models/product_model.dart';
 import '../Models/review_cart_model.dart';
 
-class ReviewCart extends StatelessWidget {
-  ReviewCartProvider? listProvider;
+class WishLIstScreen extends StatefulWidget {
+  @override
+  State<WishLIstScreen> createState() => _WishLIstScreenState();
+}
 
-  showAlertDialog(BuildContext context, ReviewCartModel delete) {
+class _WishLIstScreenState extends State<WishLIstScreen> {
+  WishListProvider? wishListProvider;
+  showAlertDialog(BuildContext context, ProductModel delete) {
     // print(delete);
     // set up the button
     Widget YesButton = TextButton(
       child: Text("Yes"),
       onPressed: () {
-        listProvider?.deleteReviewCart(delete.cartId!);
+        wishListProvider?.getdeleted(delete.productId!);
 
         Navigator.of(context).pop();
       },
@@ -46,10 +52,14 @@ class ReviewCart extends StatelessWidget {
     );
   }
 
+  void delete(String? id) {
+    wishListProvider!.getdeleted(id);
+  }
+
   @override
   Widget build(BuildContext context) {
-    listProvider = Provider.of<ReviewCartProvider>(context);
-    listProvider?.getReviewCartData();
+    wishListProvider = Provider.of<WishListProvider>(context);
+    wishListProvider?.getwishListData();
     return Scaffold(
         bottomNavigationBar: ListTile(
           title: Text("Total Aount"),
@@ -80,13 +90,13 @@ class ReviewCart extends StatelessWidget {
             style: TextStyle(color: textColor, fontSize: 18),
           ),
         ),
-        body: listProvider!.listReviewCart.isEmpty
+        body: wishListProvider!.getwishList.isEmpty
             ? Center(child: Text("No data right now"))
             : ListView.builder(
-                itemCount: listProvider!.listReviewCart.length,
+                itemCount: wishListProvider!.getwishList.length,
                 itemBuilder: ((context, index) {
                   // print(listProvider.listReviewCart.length);
-                  ReviewCartModel data = listProvider!.listReviewCart[index];
+                  ProductModel data = wishListProvider!.getwishList[index];
                   return Column(
                     children: [
                       SizedBox(
@@ -96,11 +106,11 @@ class ReviewCart extends StatelessWidget {
                         id: null,
                         isBool: false,
                         onDelete: () {
-                          showAlertDialog(context, data);
+                          delete(data.productId);
                         },
-                        productImage: data.cartImage!,
-                        productName: data.cartName!,
-                        productPrice: data.cartPrice!,
+                        productImage: data.productImage!,
+                        productName: data.productName!,
+                        productPrice: data.productPrice!,
                       ),
                       Divider(
                         height: 2,

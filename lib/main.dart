@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:vegi_app/Config/Colors.dart';
 import 'package:vegi_app/Providers/product_provider.dart';
 import 'package:vegi_app/Providers/user_provider.dart';
+import 'package:vegi_app/Providers/wishlist_provider.dart';
 import '../Providers/review_cart_provider.dart';
 import 'auth/sign_in.dart';
 
@@ -26,7 +27,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<UserProvider>(
             create: (context) => UserProvider()),
         ChangeNotifierProvider<ReviewCartProvider>(
-            create: (context) => ReviewCartProvider())
+            create: (context) => ReviewCartProvider()),
+        ChangeNotifierProvider<WishListProvider>(
+            create: (context) => WishListProvider())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

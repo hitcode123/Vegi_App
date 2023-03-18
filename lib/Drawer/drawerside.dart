@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vegi_app/Screens/wishlist_screen.dart';
 import '../Screens/review_cart_screen.dart';
 
 import '../Screens/home_screen.dart';
@@ -81,7 +82,14 @@ class DrawerSide extends StatelessWidget {
                 .push(MaterialPageRoute(builder: (context) => ProfileView()))),
         Listtile(icon: Icons.notifications_outlined, title: "Notification"),
         Listtile(icon: Icons.star_outline, title: "Rating & Review"),
-        Listtile(icon: Icons.favorite_outline_outlined, title: "WishList"),
+        GestureDetector(
+          child: Listtile(
+              icon: Icons.favorite_outline_outlined, title: "WishList"),
+          onTap: () {
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => WishLIstScreen()));
+          },
+        ),
         Listtile(icon: Icons.copy_outlined, title: "Raise an Complain"),
         Listtile(icon: Icons.format_quote_outlined, title: "FAQs"),
         Container(

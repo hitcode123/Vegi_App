@@ -46,12 +46,12 @@ class ProfileView extends StatelessWidget {
                     topRight: Radius.circular(20)),
               ),
               child: ListView(children: [
-                Container(
-                  width: double.infinity,
-                  child: Column(
-                      // crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Row(
+                Column(
+                    // crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Padding(
@@ -96,10 +96,13 @@ class ProfileView extends StatelessWidget {
                                 ),
                               )
                             ]),
-                      ]),
-                ),
-                SizedBox(
-                  height: 2,
+                      ),
+                    ]),
+                Expanded(
+                  flex: 2,
+                  child: SizedBox(
+                    height: 2,
+                  ),
                 ),
                 Listtile(icon: Icons.shop_outlined, title: "My Orders"),
                 Listtile(

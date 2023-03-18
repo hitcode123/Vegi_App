@@ -74,6 +74,7 @@ class _SearchState extends State<Search> {
                         thickness: 2,
                       ),
                       SingleUtility(
+                        id: null,
                         isBool: true,
                         onDelete: () {},
                         productImage: productdata.productImage!,

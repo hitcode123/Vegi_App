@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:vegi_app/Models/product_model.dart';
 import 'package:vegi_app/Providers/product_provider.dart';
+import 'package:vegi_app/Screens/review_cart_screen.dart';
 
 import '../Screens/search_screen.dart';
 import '../Drawer/drawerside.dart';
@@ -109,10 +110,14 @@ class _HomeScreenState extends State<HomeScreen> {
               child: CircleAvatar(
                 radius: 12,
                 backgroundColor: Color(0xffd6b738),
-                child: Icon(
-                  Icons.shop,
-                  color: Colors.black,
-                  size: 17,
+                child: GestureDetector(
+                  onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(builder: ((context) => ReviewCart()))),
+                  child: Icon(
+                    Icons.shop,
+                    color: Colors.black,
+                    size: 17,
+                  ),
                 ),
               ),
             ),
@@ -236,6 +241,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         MaterialPageRoute(
                                             builder: (context) =>
                                                 ProductOverviewScreen(
+                                                  productId: item.productId!,
                                                   productName:
                                                       item.productName!,
                                                   productImage:
@@ -285,6 +291,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         MaterialPageRoute(
                                             builder: (context) =>
                                                 ProductOverviewScreen(
+                                                  productId: item.productId!,
                                                   productName:
                                                       item.productName!,
                                                   productImage:
@@ -334,6 +341,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         MaterialPageRoute(
                                             builder: (context) =>
                                                 ProductOverviewScreen(
+                                                  productId: item.productId!,
                                                   productName:
                                                       item.productName!,
                                                   productImage:
