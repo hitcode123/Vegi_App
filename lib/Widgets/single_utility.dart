@@ -2,27 +2,40 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vegi_app/Config/Colors.dart';
 import 'package:vegi_app/Providers/review_cart_provider.dart';
+import 'package:vegi_app/Widgets/count.dart';
 
-class SingleUtility extends StatelessWidget {
+class SingleUtility extends StatefulWidget {
   bool isBool = false;
+  final String? id;
   final String productImage;
   final String productName;
   final int productPrice;
-  Function onDelete;
+  VoidCallback onDelete;
 
   SingleUtility(
-      {required this.isBool,
+      {required this.id,
+      required this.isBool,
       required this.productImage,
       required this.productName,
       required this.productPrice,
       required this.onDelete});
 
-  // set up the button
+  @override
+  State<SingleUtility> createState() => _SingleUtilityState();
+}
+
+class _SingleUtilityState extends State<SingleUtility> {
+  ReviewCartProvider? reviewCartProvider;
+  bool isadd = false;
+  int count = 0;
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    ReviewCartProvider reviewCartProvider =
-        Provider.of<ReviewCartProvider>(context);
+    reviewCartProvider = Provider.of<ReviewCartProvider>(context);
+
     return Row(
       children: [
         Expanded(
@@ -35,7 +48,7 @@ class SingleUtility extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
                 child: FittedBox(
                   fit: BoxFit.cover,
-                  child: Image.network(productImage),
+                  child: Image.network(widget.productImage),
                 ),
               ),
             ),
@@ -50,7 +63,7 @@ class SingleUtility extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
                 child: Column(
-                    mainAxisAlignment: isBool == false
+                    mainAxisAlignment: widget.isBool == false
                         ? MainAxisAlignment.spaceAround
                         : MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,7 +71,7 @@ class SingleUtility extends StatelessWidget {
                       Column(
                         children: [
                           Text(
-                            productName,
+                            widget.productName,
                             style: TextStyle(
                                 color: textColor, fontWeight: FontWeight.bold),
                           ),
@@ -69,7 +82,7 @@ class SingleUtility extends StatelessWidget {
                           )
                         ],
                       ),
-                      isBool == false
+                      widget.isBool == false
                           ? Container(
                               margin: EdgeInsets.only(right: 15),
                               padding: EdgeInsets.symmetric(horizontal: 8),
@@ -85,7 +98,7 @@ class SingleUtility extends StatelessWidget {
                                     Expanded(
                                         // ignore: prefer_const_constructors
                                         child: Text(
-                                      productPrice.toString(),
+                                      widget.productPrice.toString(),
                                       style: TextStyle(
                                           color: Colors.grey, fontSize: 14),
                                     )),
@@ -98,15 +111,15 @@ class SingleUtility extends StatelessWidget {
                                     )
                                   ]),
                             )
-                          : Text("${productPrice} gram"),
+                          : Text("${widget.productPrice} gram"),
                     ]),
               ),
             )),
         Expanded(
-            flex: isBool == false ? 1 : 2,
+            flex: widget.isBool == false ? 1 : 2,
             child: Container(
                 height: 90,
-                padding: isBool == false
+                padding: widget.isBool == false
                     ? EdgeInsets.symmetric(horizontal: 5, vertical: 32)
                     : EdgeInsets.only(
                         left: 15,
@@ -114,7 +127,7 @@ class SingleUtility extends StatelessWidget {
                         top: 25,
                       ),
                 margin: EdgeInsets.only(right: 5),
-                child: isBool == false
+                child: widget.isBool == false
                     ? Center(
                         child: Row(
                         children: [
@@ -125,50 +138,36 @@ class SingleUtility extends StatelessWidget {
                               color: primaryColor,
                             ),
                             onTap: () {
-                              onDelete();
+                              widget.onDelete();
                             },
                           )
                         ],
                       ))
                     : Center(
-                        child: Column(
-                          children: [
-                            Icon(
-                              Icons.delete,
-                              size: 30,
-                              color: primaryColor,
-                            ),
-                            SizedBox(height: 8),
-                            Container(
-                              height: 25,
-                              width: 75,
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.grey),
-                                  borderRadius: BorderRadius.circular(30)),
-                              child: Center(
-                                  child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.add,
-                                    size: 20,
-                                    color: primaryColor,
-                                  ),
-                                  Text(
-                                    "ADD",
-                                    style: TextStyle(color: primaryColor),
-                                  ),
-                                  Icon(
-                                    Icons.remove,
-                                    size: 20,
-                                    color: primaryColor,
-                                  )
-                                ],
-                              )),
-                            ),
-                          ],
+                        child: Column(children: [
+                        Icon(
+                          Icons.delete,
+                          size: 30,
+                          color: primaryColor,
                         ),
-                      )))
+                        SizedBox(height: 8),
+                        Container(
+                          height: 25,
+                          width: 75,
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(30)),
+                          child: Center(
+                            child: Count(
+                              productImage: widget.productImage,
+                              productId: widget.id,
+                              productName: widget.productName,
+                            ),
+                          ),
+                        ),
+                      ]))))
       ],
     );
   }
 }
+R

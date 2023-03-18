@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vegi_app/Config/Colors.dart';
 import 'package:vegi_app/Providers/review_cart_provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Count extends StatefulWidget {
   String? productName;
@@ -22,9 +25,29 @@ class Count extends StatefulWidget {
 class _CountState extends State<Count> {
   int count = 1;
   bool isTrue = false;
+  getAddproduct() {
+    FirebaseFirestore.instance
+        .collection("ReviewCart")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection("YourReviewCart")
+        .doc(widget.productId)
+        .get()
+        .then((value) {
+      if (this.mounted) {
+        if (value.exists) {
+          setState(() {
+            count = value.get("cartQuantity");
+            isTrue = value.get("isTrue");
+          });
+        }
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     ReviewCartProvider reviewCart = Provider.of<ReviewCartProvider>(context);
+    getAddproduct();
     return Container(
         decoration: BoxDecoration(
             border: Border.all(color: Colors.grey),
@@ -46,6 +69,8 @@ class _CountState extends State<Count> {
                           count++;
                           setState(() {});
                         }
+                        reviewCart.reviewupdateproduct(
+                            id: widget.productId, count: count);
                       });
                     },
                   ),
@@ -64,11 +89,14 @@ class _CountState extends State<Count> {
                         setState(() {
                           isTrue = false;
                         });
+                        reviewCart.deleteReviewCart(widget.productId);
                       }
                       if (count > 1) {
                         setState(() {
                           count--;
                         });
+                        reviewCart.reviewupdateproduct(
+                            id: widget.productId, count: count);
                       }
                     },
                   )
@@ -88,7 +116,8 @@ class _CountState extends State<Count> {
                           cartImage: widget.productImage,
                           cartName: widget.productName,
                           cartPrice: widget.productPrice,
-                          cartQuantity: count);
+                          cartQuantity: count,
+                          isTrue: isTrue);
                     },
                     child: Text(
                       "ADD",
